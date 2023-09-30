@@ -7,7 +7,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const getVarianteCruzada = async (type, num1, num2) => {
+const getVarianteManual = async (type, num1, num2) => {
     try {
         // RESULT VC
         let matriz = [];
@@ -76,7 +76,7 @@ const getVarianteCruzada = async (type, num1, num2) => {
 app.get("/", cors(), async(req, res) => {
     let num1 = req.query.num1;
     let num2 = req.query.num2;
-    res.json(await getVarianteCruzada('lottoActivo', num1, num2));
+    res.json(await getVarianteManual('lottoActivo', num1, num2));
 });
 
 const PORT = process.env.PORT || 5000;
