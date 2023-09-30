@@ -7,8 +7,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-let num1, num2;  // Almacena num1 y num2 en el nivel del módulo
-
 const getVarianteCruzada = async (type, num1, num2) => {
     try {
         // RESULT VC
@@ -55,20 +53,31 @@ const getVarianteCruzada = async (type, num1, num2) => {
             }
 
             //Variante Cruzada
-            console.log(varianteCruzada);
+            console.log("Variante Cruzada:", [varianteCruzada1, varianteCruzada2]);
 
             //Agarran fuerza
-            console.log(agarranMasFuerza);
+            let agarranMasFuerza = [
+                varianteCruzada1.filter(num => colores[num] === colores[num1]),
+                varianteCruzada2.filter(num => colores[num] === colores[num2])
+            ];
+            console.log("Agarran más fuerza:", agarranMasFuerza);
 
-            //Puntos de encuetro.
-            console.log(puntosDeEncuetro);
+            //Puntos de encuentro
+            let puntosDeEncuentro = [matriz[filaNum1][colNum2], matriz[filaNum2][colNum1]];
+            console.log("Puntos de encuentro:", puntosDeEncuentro);
             
-            // El resto del código...
+            return {varianteCruzada: [varianteCruzada1, varianteCruzada2], agarranMasFuerza: agarranMasFuerza, puntosDeEncuentro: puntosDeEncuentro};
         }
     } catch(error) {
         console.error(error);
     }
-}
+} 
+
+app.get("/", cors(), async(req, res) => {
+    let num1 = req.query.num1;
+    let num2 = req.query.num2;
+    res.json(await getVarianteCruzada('lottoActivo', num1, num2));
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server funcionando desde:" + PORT));
