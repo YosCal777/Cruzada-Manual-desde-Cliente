@@ -36,37 +36,37 @@ const getVarianteManual = async (num1, num2) => {
         let filaNum2 = Math.floor((num2 - 1) / 3);
         let colNum2 = (num2 - 1) % 3;
 
-        if (filaNum1 === filaNum2 || colNum1 === colNum2) {
-            throw new Error("NO se dan las condiciones para la Variante Cruzada. Los números están en el mismo grupo o en la misma columna.");
-        } else {
-            let grupoNum1 = Math.floor(filaNum1 / 4);
-            let grupoNum2 = Math.floor(filaNum2 / 4);
+        
+        let grupoNum1 = Math.floor(filaNum1 / 4);
+        let grupoNum2 = Math.floor(filaNum2 / 4);
 
-            let varianteCruzada1 = [];
-            for (let i = grupoNum2 * 4; i < (grupoNum2 + 1) * 4; i++) {
-                varianteCruzada1.push(matriz[i][colNum1]);
-            }
-
-            let varianteCruzada2 = [];
-            for (let i = grupoNum1 * 4; i < (grupoNum1 + 1) * 4; i++) {
-                varianteCruzada2.push(matriz[i][colNum2]);
-            }
-
-            let varianteCruzada = varianteCruzada1.concat(varianteCruzada2);
-            //Variante Cruzada
-            console.log("Variante Cruzada:", varianteCruzada);
-
-            //Agarran fuerza
-            let agarranMasFuerza =
-                varianteCruzada1.filter(num => colores[num] === colores[num1]).concat(varianteCruzada2.filter(num => colores[num] === colores[num2]));
-            console.log("Agarran más fuerza:", agarranMasFuerza);
-
-            //Puntos de encuentro
-            let puntosDeEncuentro = [matriz[filaNum1][colNum2], matriz[filaNum2][colNum1]];
-            console.log("Puntos de encuentro:", puntosDeEncuentro);
-            
-            return {varianteCruzada: varianteCruzada, agarranMasFuerza: agarranMasFuerza, puntosDeEncuentro: puntosDeEncuentro};
+        let varianteCruzada1 = [];
+        for (let i = grupoNum2 * 4; i < (grupoNum2 + 1) * 4; i++) {
+            varianteCruzada1.push(matriz[i][colNum1]);
         }
+
+        let varianteCruzada2 = [];
+        for (let i = grupoNum1 * 4; i < (grupoNum1 + 1) * 4; i++) {
+            varianteCruzada2.push(matriz[i][colNum2]);
+        }
+        
+        let varianteCruzada = varianteCruzada1.concat(varianteCruzada2);
+        
+        //Variante Cruzada
+        console.log("Variante Cruzada:", varianteCruzada);
+
+        //Agarran fuerza
+        let agarranMasFuerza =
+            varianteCruzada.filter(num => colores[num] === colores[num1]).concat(varianteCruzada.filter(num => colores[num] === colores[num2]));
+        
+        console.log("Agarran más fuerza:", agarranMasFuerza);
+
+        //Puntos de encuentro
+        let puntosDeEncuentro = [matriz[filaNum1][colNum2], matriz[filaNum2][colNum1]];
+        
+        console.log("Puntos de encuentro:", puntosDeEncuentro);
+            
+        return {varianteCruzada: varianteCruzada, agarranMasFuerza: agarranMasFuerza, puntosDeEncuentro: puntosDeEncuentro};
     } catch(error) {
         console.error(error);
         throw error;
