@@ -27,7 +27,7 @@ const getVarianteManual = async (type, num1, num2) => {
         let filaNum2 = Math.floor((num2 - 1) / 3);
         let colNum2 = (num2 - 1) % 3;
 
-        if (filaNum1 === filaNum2 || colNum1 === colNum2) {
+        if (filaNum1 === filaNum2 || colNum1 === colNum2 || Math.floor(filaNum1 / 4) === Math.floor(filaNum2 / 4)) {
             console.log("NO se dan las conciciones para la Variante Cruzada. Los números están en el mismo grupo o en la misma columna.");
         } else {
             let grupoNum1 = Math.floor(filaNum1 / 4);
