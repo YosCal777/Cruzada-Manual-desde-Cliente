@@ -57,7 +57,7 @@ const getVarianteManual = async (num1, num2) => {
 
         //Agarran fuerza
         let agarranMasFuerza =
-            varianteCruzada.filter(num => colores[num] === colores[num1]).concat(varianteCruzada.filter(num => colores[num] === colores[num2]));
+            varianteCruzada1.filter(num => colores[num] === colores[num1]).concat(varianteCruzada2.filter(num => colores[num] === colores[num2]));
         
         console.log("Agarran más fuerza:", agarranMasFuerza);
 
