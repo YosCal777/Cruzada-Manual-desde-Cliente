@@ -76,7 +76,7 @@ const getVarianteManual = async (type, num1, num2) => {
 app.get("/", cors(), async(req, res) => {
     let num1 = req.query.num1;
     let num2 = req.query.num2;
-    res.json(await getVarianteManual('lottoActivo', num1, num2));
+    res.json(await getVarianteManual( num1, num2));
 });
 
 const PORT = process.env.PORT || 5000;
