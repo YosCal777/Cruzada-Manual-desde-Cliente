@@ -52,22 +52,20 @@ const getVarianteManual = async (num1, num2) => {
                 varianteCruzada2.push(matriz[i][colNum2]);
             }
 
-            //Variante Cruzada
             let varianteCruzada = varianteCruzada1.concat(varianteCruzada2);
+            //Variante Cruzada
             console.log("Variante Cruzada:", varianteCruzada);
 
             //Agarran fuerza
-            let agarranMasFuerza = [
-                varianteCruzada1.filter(num => colores[num] === colores[num1]),
-                varianteCruzada2.filter(num => colores[num] === colores[num2])
-            ];
+            let agarranMasFuerza =
+                varianteCruzada1.filter(num => colores[num] === colores[num1]).concat(varianteCruzada2.filter(num => colores[num] === colores[num2]));
             console.log("Agarran más fuerza:", agarranMasFuerza);
 
             //Puntos de encuentro
             let puntosDeEncuentro = [matriz[filaNum1][colNum2], matriz[filaNum2][colNum1]];
             console.log("Puntos de encuentro:", puntosDeEncuentro);
             
-            return {varianteCruzada: [varianteCruzada1, varianteCruzada2], agarranMasFuerza: agarranMasFuerza, puntosDeEncuentro: puntosDeEncuentro};
+            return {varianteCruzada: varianteCruzada, agarranMasFuerza: agarranMasFuerza, puntosDeEncuentro: puntosDeEncuentro};
         }
     } catch(error) {
         console.error(error);
