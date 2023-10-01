@@ -7,7 +7,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const getVarianteManual = async (type, num1, num2) => {
+const getVarianteManual = async (num1, num2) => {
     try {
         // RESULT VC
         let matriz = [];
@@ -37,8 +37,7 @@ const getVarianteManual = async (type, num1, num2) => {
         let colNum2 = (num2 - 1) % 3;
 
         if (filaNum1 === filaNum2 || colNum1 === colNum2) {
-            let mensajeError = "NO se dan las condiciones para la Variante Cruzada. Los números están en el mismo grupo o en la misma columna.";
-            console.log(mensajeError);
+            throw new Error("NO se dan las condiciones para la Variante Cruzada. Los números están en el mismo grupo o en la misma columna.");
         } else {
             let grupoNum1 = Math.floor(filaNum1 / 4);
             let grupoNum2 = Math.floor(filaNum2 / 4);
@@ -71,13 +70,25 @@ const getVarianteManual = async (type, num1, num2) => {
         }
     } catch(error) {
         console.error(error);
+        throw error;
     }
 } 
 
 app.get("/", cors(), async(req, res) => {
-    let num1 = req.query.num1;
-    let num2 = req.query.num2;
-    res.json(await getVarianteManual('lottoActivo', num1, num2));
+    let num1 = parseInt(req.query.num1);
+    let num2 = parseInt(req.query.num2);
+
+    // Validación de entrada
+    if (isNaN(num1) || isNaN(num2) || num1 < 1 || num1 > 36 || num2 < 1 || num2 > 36) {
+        return res.status(400).json({ error: 'Los números proporcionados son inválidos.' });
+    }
+
+    try {
+        let result = await getVarianteManual(num1, num2);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 const PORT = process.env.PORT || 5000;
