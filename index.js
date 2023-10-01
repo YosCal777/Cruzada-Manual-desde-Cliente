@@ -53,7 +53,8 @@ const getVarianteManual = async (num1, num2) => {
             }
 
             //Variante Cruzada
-            console.log("Variante Cruzada:", [varianteCruzada1, varianteCruzada2]);
+            let varianteCruzada = varianteCruzada1.concat(varianteCruzada2);
+            console.log("Variante Cruzada:", varianteCruzada);
 
             //Agarran fuerza
             let agarranMasFuerza = [
