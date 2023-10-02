@@ -78,7 +78,7 @@ app.get("/", cors(), async(req, res) => {
     let num2 = parseInt(req.query.num2);
 
     // Validación de entrada
-    if (isNaN(num1) || isNaN(num2) || num1 < 1 || num1 > 38 || num2 < 1 || num2 > 38) {
+    if (isNaN(num1) || isNaN(num2) || num1 < 1 || num1 > 36 || num2 < 1 || num2 > 36) {
         return res.status(400).json({ error: 'Los números proporcionados son inválidos.' });
     }
 
